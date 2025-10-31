@@ -1,0 +1,2 @@
+# Après avoir créé ton projet et ton app
+python manage.py migrate
