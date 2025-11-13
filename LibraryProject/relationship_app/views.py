@@ -3,9 +3,9 @@ from django.views.generic import DetailView
 from .models import Book, Library
 
 
-# -------------------------------
+# ------------------------------------------------------------
 # 1️⃣ Function-based view : Liste de tous les livres
-# -------------------------------
+# ------------------------------------------------------------
 def list_books(request):
     """
     Affiche la liste de tous les livres enregistrés dans la base de données.
@@ -15,15 +15,16 @@ def list_books(request):
     return render(request, 'list_books.html', context)
 
 
-# -------------------------------
-# 2️⃣ Class-based view : Détails d'une bibliothèque
-# -------------------------------
+# ------------------------------------------------------------
+# 2️⃣ Class-based view : Détails d'une bibliothèque spécifique
+# ------------------------------------------------------------
 class LibraryDetailView(DetailView):
     """
     Affiche les détails d'une bibliothèque spécifique, y compris les livres disponibles.
     """
-    model = Library
-    template_name = 'library_detail.html'
-    context_object_name = 'library'
+    model = Library  # Le modèle utilisé pour récupérer les données
+    template_name = 'library_detail.html'  # Le fichier HTML à afficher
+    context_object_name = 'library'  # Nom de la variable utilisée dans le template
+
 
 
