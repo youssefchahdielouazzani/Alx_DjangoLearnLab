@@ -1,31 +1,29 @@
-# relationship_app/views.py
+from django.shortcuts import render
+from django.views.generic import DetailView
+from .models import Book, Library
 
-from django.http import HttpResponse
-from .models import Book
 
+# -------------------------------
+# 1️⃣ Function-based view : Liste de tous les livres
+# -------------------------------
 def list_books(request):
     """
-    Vue fonctionnelle qui renvoie une simple liste texte de livres
-    sous la forme : "Titre - NomAuteur"
+    Affiche la liste de tous les livres enregistrés dans la base de données.
     """
-    books = Book.objects.all()
+    books = Book.objects.all()  # Récupère tous les livres
+    context = {'books': books}
+    return render(request, 'list_books.html', context)
 
-    # Construire la sortie en tenant compte de variantes du modèle Author
-    lines = []
-    for book in books:
-        # Cas 1 : author a un champ 'name'
-        if hasattr(book.author, "name"):
-            author_display = book.author.name
-        # Cas 2 : author a 'first_name' et 'last_name'
-        elif hasattr(book.author, "first_name") and hasattr(book.author, "last_name"):
-            author_display = f"{book.author.first_name} {book.author.last_name}"
-        # Cas 3 : fallback (si author est une simple chaine ou autre)
-        else:
-            author_display = str(book.author)
 
-        lines.append(f"{book.title} - {author_display}")
+# -------------------------------
+# 2️⃣ Class-based view : Détails d'une bibliothèque
+# -------------------------------
+class LibraryDetailView(DetailView):
+    """
+    Affiche les détails d'une bibliothèque spécifique, y compris les livres disponibles.
+    """
+    model = Library
+    template_name = 'library_detail.html'
+    context_object_name = 'library'
 
-    # Joindre avec des <br> pour l'affichage HTML simple
-    output = "<br>".join(lines) if lines else "Aucun livre trouvé."
-    return HttpResponse(output)
 
