@@ -1,19 +1,25 @@
 import os
 from pathlib import Path
 
-# BASE DIRECTORY
+# -----------------------------
+# BASE DIR
+# -----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'replace-this-key'
 
-# DEVELOPMENT MODE
+# -----------------------------
+# PARAMÈTRES DE SÉCURITÉ
+# -----------------------------
+SECRET_KEY = 'django-insecure-change-this-value'
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-# APPLICATIONS
+# -----------------------------
+# APPLICATIONS INSTALLEES
+# -----------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,11 +28,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Custom app
+    # --- APP POUR LE CUSTOM USER ---
     'accounts',
 ]
 
+
+# -----------------------------
 # MIDDLEWARE
+# -----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -37,9 +46,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# -----------------------------
+# URLS ET CONFIG TEMPLATE
+# -----------------------------
 ROOT_URLCONF = 'advanced_features_and_security.urls'
 
-# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -59,7 +71,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'advanced_features_and_security.wsgi.application'
 
 
-# DATABASE
+# -----------------------------
+# BASE DE DONNÉES
+# -----------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -67,7 +81,10 @@ DATABASES = {
     }
 }
 
-# PASSWORD VALIDATION
+
+# -----------------------------
+# VALIDATEURS DE MOTS DE PASSE
+# -----------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -83,7 +100,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# LANGUAGE – TIMEZONE
+
+# -----------------------------
+# LANGUE ET TIMEZONE
+# -----------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
@@ -91,16 +111,29 @@ USE_I18N = True
 USE_TZ = True
 
 
-# STATIC FILES
-STATIC_URL = '/static/'
+# -----------------------------
+# FICHIERS STATIQUES
+# -----------------------------
+STATIC_URL = 'static/'
+STATICFILES_DIRS = []
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# MEDIA FILES (for profile_photo)
+
+# -----------------------------
+# FICHIERS MEDIA (uploads)
+# -----------------------------
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# DEFAULT PRIMARY KEY FIELD TYPE
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# IMPORTANT : Custom user model
+# -----------------------------
+# CUSTOM USER MODEL
+# -----------------------------
+# Étape 2 : Indiquer que Django doit utiliser ton modèle CustomUser
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# -----------------------------
+# AUTO FIELD PAR DEFAUT
+# -----------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
