@@ -5,18 +5,21 @@ Configurations de sécurité renforcées pour HTTPS et cookies sécurisés.
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ----------------------------
+# Chemins de base du projet
+# ----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'votre-secret-key'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+# ----------------------------
+# Clé secrète et debug
+# ----------------------------
+SECRET_KEY = 'votre-secret-key'  # Remplacez par votre clé réelle
 DEBUG = False
-
 ALLOWED_HOSTS = ['votre-domaine.com']  # Remplacez par votre domaine
 
-# Application definition
+# ----------------------------
+# Applications installées
+# ----------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,6 +30,9 @@ INSTALLED_APPS = [
     'bookshelf',
 ]
 
+# ----------------------------
+# Middleware
+# ----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -39,6 +45,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
+# ----------------------------
+# Templates
+# ----------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -57,7 +66,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
-# Database
+# ----------------------------
+# Base de données
+# ----------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -65,7 +76,9 @@ DATABASES = {
     }
 }
 
-# Password validation
+# ----------------------------
+# Validation des mots de passe
+# ----------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -73,19 +86,23 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
+# ----------------------------
+# Internationalisation
+# ----------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# ----------------------------
+# Fichiers statiques
+# ----------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# ---------------------------
+# ----------------------------
 # CONFIGURATIONS DE SECURITE
-# ---------------------------
+# ----------------------------
 
 # Redirection HTTP → HTTPS
 SECURE_SSL_REDIRECT = True
@@ -108,5 +125,11 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # Protection XSS côté navigateur
 SECURE_BROWSER_XSS_FILTER = True
 
-# Default primary key field type
+# Pour ALX : HTTPS détecté derrière un proxy (comme Nginx)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ----------------------------
+# Champs par défaut
+# ----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
