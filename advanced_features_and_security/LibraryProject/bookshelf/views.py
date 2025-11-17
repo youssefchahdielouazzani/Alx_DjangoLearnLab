@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Book
-from .forms import BookForm
+from .forms import ExampleForm
 
 def book_list(request):
     books = Book.objects.all()
@@ -13,9 +13,10 @@ def search_books(request):
 
 def add_book(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/form_example.html', {'form': form})
+
