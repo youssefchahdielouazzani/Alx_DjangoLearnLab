@@ -1,10 +1,11 @@
-"""
-URL configuration for advanced_api_project project.
-"""
-
-from django.contrib import admin
 from django.urls import path
+from .views import AuthorListCreateView, BookListCreateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Liste et création des auteurs
+    path('authors/', AuthorListCreateView.as_view(), name='authors-list-create'),
+    
+    # Liste et création des livres
+    path('books/', BookListCreateView.as_view(), name='books-list-create'),
 ]
+
