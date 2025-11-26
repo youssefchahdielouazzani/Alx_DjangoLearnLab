@@ -18,3 +18,4 @@ class AuthorBookModelTest(TestCase):
         self.assertEqual(author.name, "Test Author")
         self.assertEqual(book.title, "Test Book")
         self.assertEqual(book.author, author)
+
