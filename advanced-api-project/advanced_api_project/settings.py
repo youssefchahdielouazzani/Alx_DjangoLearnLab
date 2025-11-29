@@ -1,17 +1,25 @@
+"""
+Django settings for advanced_api_project project.
+"""
+
+import os
 from pathlib import Path
 
+# ------------------------------
+# Chemins de base
+# ------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'  # Django en met un automatiquement
-
+# ------------------------------
+# Clé secrète et debug
+# ------------------------------
+SECRET_KEY = 'replace-this-with-your-secret-key'  # ALX: utilisez une clé valide pour le dev
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
-
-# ------------------------------------------------------------------
-# INSTALLED APPS
-# ------------------------------------------------------------------
+# ------------------------------
+# Applications installées
+# ------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,19 +28,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Django REST Framework
+    # Applications tierces
     'rest_framework',
+    'django_filters',
 
-    # Token Authentication (obligatoire pour tests ALX)
-    'rest_framework.authtoken',
-
-    # Your API app
-    'api',
+    # Votre application
+    'books',  # Exemple : l'app contenant le modèle Book
 ]
 
-# ------------------------------------------------------------------
-# MIDDLEWARE
-# ------------------------------------------------------------------
+# ------------------------------
+# Middleware
+# ------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -45,6 +51,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'advanced_api_project.urls'
 
+# ------------------------------
+# Templates
+# ------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -62,12 +71,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
-ASGI_APPLICATION = 'advanced_api_project.asgi.application'
 
-
-# ------------------------------------------------------------------
-# DATABASE
-# ------------------------------------------------------------------
+# ------------------------------
+# Base de données (SQLite pour ALX)
+# ------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -75,10 +82,9 @@ DATABASES = {
     }
 }
 
-
-# ------------------------------------------------------------------
-# PASSWORD VALIDATION
-# ------------------------------------------------------------------
+# ------------------------------
+# Validation des mots de passe
+# ------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -94,41 +100,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# ------------------------------------------------------------------
-# INTERNATIONALIZATION
-# ------------------------------------------------------------------
+# ------------------------------
+# Internationalisation
+# ------------------------------
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
+# ------------------------------
+# Fichiers statiques
+# ------------------------------
+STATIC_URL = '/static/'
 
-# ------------------------------------------------------------------
-# STATIC FILES
-# ------------------------------------------------------------------
-STATIC_URL = 'static/'
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# ------------------------------------------------------------------
-# REST FRAMEWORK SETTINGS (exigé par ALX)
-# ------------------------------------------------------------------
+# ------------------------------
+# DRF Settings (Filtrage, Recherche, Ordering)
+# ------------------------------
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ]
 }
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ],
-}
+
+# ------------------------------
+# Paramètres par défaut auto-field
+# ------------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
