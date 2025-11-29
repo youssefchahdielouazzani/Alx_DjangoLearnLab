@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------------
 # Clé secrète et debug
 # ------------------------------
-SECRET_KEY = 'replace-this-with-your-secret-key'  # ALX: utilisez une clé valide pour le dev
+SECRET_KEY = 'replace-this-with-your-secret-key'  # Remplace par une clé valide
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     # Votre application
-    'books',  # Exemple : l'app contenant le modèle Book
+    'books.apps.BooksConfig',  # L'app Books créée
 ]
 
 # ------------------------------
@@ -128,4 +128,3 @@ REST_FRAMEWORK = {
 # Paramètres par défaut auto-field
 # ------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
