@@ -1,16 +1,21 @@
 from pathlib import Path
 
+# Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Clé secrète (à remplacer pour prod)
 SECRET_KEY = 'replace-this-with-your-secret-key'
 
+# Mode debug
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
+# ----------------------------
+# Applications installées
+# ----------------------------
 INSTALLED_APPS = [
+    # Apps Django par défaut
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,10 +26,13 @@ INSTALLED_APPS = [
     # Third-party
     'rest_framework',
 
-    # Local apps
-    'api',
+    # App locale
+    'api',  # <-- CORRECT: pas 'books'
 ]
 
+# ----------------------------
+# Middleware
+# ----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -35,8 +43,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL principale du projet
 ROOT_URLCONF = 'advanced_api_project.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -53,11 +63,13 @@ TEMPLATES = [
     },
 ]
 
+# WSGI et ASGI
 WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
 ASGI_APPLICATION = 'advanced_api_project.asgi.application'
 
-
-# Database
+# ----------------------------
+# Base de données
+# ----------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -65,8 +77,9 @@ DATABASES = {
     }
 }
 
-
-# Password validation
+# ----------------------------
+# Validation des mots de passe
+# ----------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -82,19 +95,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
+# ----------------------------
+# Internationalisation
+# ----------------------------
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files
+# ----------------------------
+# Fichiers statiques
+# ----------------------------
 STATIC_URL = 'static/'
 
+# Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
