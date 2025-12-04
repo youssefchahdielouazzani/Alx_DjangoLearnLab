@@ -6,4 +6,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/books/', BookListView.as_view()),
 ]
-
