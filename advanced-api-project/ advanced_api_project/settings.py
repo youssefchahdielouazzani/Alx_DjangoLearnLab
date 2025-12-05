@@ -2,12 +2,16 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'change-me'
+SECRET_KEY = 'django-insecure-change-this'
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# --------------------------------------------------
+# Applications installées
+# --------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -15,11 +19,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'django_filters',
+
+    # Apps du projet
     'books',
+    'api',
+
+    # Django REST Framework
+    'rest_framework',
+
+    # Filtrage
+    'django_filters',
 ]
 
+
+# --------------------------------------------------
+# Middleware
+# --------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -30,12 +45,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# --------------------------------------------------
+# URL configuration principale
+# --------------------------------------------------
 ROOT_URLCONF = 'advanced_api_project.urls'
 
+
+# --------------------------------------------------
+# Templates
+# --------------------------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # si tu utilises des templates HTML
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -48,8 +71,16 @@ TEMPLATES = [
     },
 ]
 
+
+# --------------------------------------------------
+# WSGI
+# --------------------------------------------------
 WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
 
+
+# --------------------------------------------------
+# Base de données
+# --------------------------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -57,6 +88,10 @@ DATABASES = {
     }
 }
 
+
+# --------------------------------------------------
+# Password validation
+# --------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -72,22 +107,34 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# --------------------------------------------------
+# Internationalisation
+# --------------------------------------------------
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# --------------------------------------------------
+# Fichiers statiques
+# --------------------------------------------------
+STATIC_URL = '/static/'
 
+
+# --------------------------------------------------
+# Django REST Framework config
+# --------------------------------------------------
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter',
-        'rest_framework.filters.OrderingFilter',
     ]
 }
+
+
+# --------------------------------------------------
+# Auto field par défaut
+# --------------------------------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
