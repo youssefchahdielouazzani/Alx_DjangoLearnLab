@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import path
-from books.views import BookListView
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/books/', BookListView.as_view()),
+    path('api/', include('books.urls')),
 ]
+
 
