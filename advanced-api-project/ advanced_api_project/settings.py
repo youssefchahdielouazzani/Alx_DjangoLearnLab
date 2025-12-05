@@ -1,18 +1,13 @@
-"""
-Django settings for advanced_api_project project.
-"""
-
 from pathlib import Path
 
-# Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Sécurité
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = 'change-me'
+
 DEBUG = True
+
 ALLOWED_HOSTS = []
 
-# Applications installées
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,10 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'books',
 ]
 
-# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -35,10 +30,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# URLs
 ROOT_URLCONF = 'advanced_api_project.urls'
 
-# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -55,10 +48,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI
 WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
 
-# Base de données (SQLite pour développement)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -66,7 +57,6 @@ DATABASES = {
     }
 }
 
-# Validation des mots de passe
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -82,16 +72,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Langue et fuseau horaire
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
-# Fichiers statiques
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
-# DRF par défaut
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
