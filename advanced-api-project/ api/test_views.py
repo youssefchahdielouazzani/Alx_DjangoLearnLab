@@ -12,3 +12,4 @@ class BookTests(TestCase):
         response = self.client.get('/api/books/')
         self.assertEqual(response.status_code, 200)
 
+
