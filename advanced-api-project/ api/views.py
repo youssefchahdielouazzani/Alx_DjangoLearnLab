@@ -1,17 +1,13 @@
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, permissions
 from .models import Book
 from .serializers import BookSerializer
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    # Filtering, search & ordering for ALX requirements
-    filter_backends = [
-        filters.SearchFilter,
-        filters.OrderingFilter
-    ]
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-    search_fields = ['title', 'author']
-    ordering_fields = ['title', 'publication_year']
 
