@@ -1,17 +1,21 @@
+"""
+Django settings for advanced_api_project project.
+"""
+
 from pathlib import Path
 
+# 🔹 Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'replace-this-with-your-own-secret-key'
+# 🔹 Clé secrète (à changer pour prod)
+SECRET_KEY = 'django-insecure-your-secret-key'
 
+# 🔹 Mode debug
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# ------------------------------------------------------------
-# INSTALLED APPS
-# ------------------------------------------------------------
+# 🔹 Applications installées
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,17 +24,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party
-    'rest_framework',
+    'rest_framework',  # Django REST Framework
 
-    # Your app
-    'api',
+    'api',  # Ton application API
 ]
 
-
-# ------------------------------------------------------------
-# MIDDLEWARE
-# ------------------------------------------------------------
+# 🔹 Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -41,13 +40,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+# 🔹 URLs racine du projet
 ROOT_URLCONF = 'advanced_api_project.urls'
 
-
-# ------------------------------------------------------------
-# TEMPLATES
-# ------------------------------------------------------------
+# 🔹 Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -64,13 +60,10 @@ TEMPLATES = [
     },
 ]
 
-
+# 🔹 WSGI
 WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
 
-
-# ------------------------------------------------------------
-# DATABASE
-# ------------------------------------------------------------
+# 🔹 Base de données (SQLite pour ALX)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -78,54 +71,29 @@ DATABASES = {
     }
 }
 
-
-# ------------------------------------------------------------
-# PASSWORD VALIDATION
-# ------------------------------------------------------------
+# 🔹 Mot de passe / validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# ------------------------------------------------------------
-# INTERNATIONALIZATION
-# ------------------------------------------------------------
+# 🔹 Langue et fuseau horaire
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
+# 🔹 Fichiers statiques
+STATIC_URL = '/static/'
 
-# ------------------------------------------------------------
-# STATIC FILES
-# ------------------------------------------------------------
-STATIC_URL = 'static/'
-
-
+# 🔹 Valeur par défaut pour les clés auto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# ------------------------------------------------------------
-# DJANGO REST FRAMEWORK SETTINGS
-# ------------------------------------------------------------
+# 🔹 Django REST Framework settings (optionnel)
 REST_FRAMEWORK = {
-    "DEFAULT_FILTER_BACKENDS": [
-        "rest_framework.filters.SearchFilter",
-        "rest_framework.filters.OrderingFilter",
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
     ]
 }
-
