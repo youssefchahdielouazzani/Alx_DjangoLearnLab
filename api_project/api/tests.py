@@ -9,3 +9,4 @@ class BookModelTest(TestCase):
         book = Book.objects.get(title="Test Book")
         self.assertEqual(book.author, "Author A")
 
+
