@@ -35,7 +35,6 @@ class BookCreateView(generics.CreateAPIView):
     """
     POST /books/create/
     Permet aux utilisateurs authentifiés de créer un nouveau livre.
-    Valide automatiquement les données via le serializer.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -44,8 +43,6 @@ class BookCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         """
         Optionnel : personnaliser la création si nécessaire.
-        Par exemple, associer un utilisateur créateur :
-        serializer.save(created_by=self.request.user)
         """
         serializer.save()
 
@@ -61,5 +58,14 @@ class BookUpdateView(generics.UpdateAPIView):
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# -----------------------------------
-
+# ---------------------------------------
+# Delete a book (authentifié uniquement)
+# ---------------------------------------
+class DeleteView(generics.DestroyAPIView):
+    """
+    DELETE /books/<int:pk>/delete/
+    Supprime un livre (authentifié uniquement)
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
