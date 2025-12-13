@@ -1,7 +1,6 @@
-# Retrieve Book
+# Commande pour récupérer la liste des livres
+curl -X GET http://localhost:8000/books/
 
-```python
-from bookshelf.models import Book
+# Commande pour récupérer un livre précis (ex: id=1)
+curl -X GET http://localhost:8000/books/1/
 
-book = Book.objects.get(title="1984")
-book.title, book.author, book.publication_year
