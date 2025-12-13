@@ -1,9 +1,3 @@
-# Delete Book
+# Commande pour supprimer un livre existant (ex: id=1)
+curl -X DELETE http://localhost:8000/books/1/
 
-```python
-from bookshelf.models import Book
-
-book = Book.objects.get(title="Nineteen Eighty-Four")
-book.delete()
-
-Book.objects.all()
