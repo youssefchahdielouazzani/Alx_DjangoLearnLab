@@ -1,27 +1,46 @@
-from rest_framework import status, generics
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+
 from .models import Post, Like
-from notifications.views import create_notification
+from notifications.models import Notification
+
 
 class LikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        like, created = Like.objects.get_or_create(post=post, user=request.user)
+        post = generics.get_object_or_404(Post, pk=pk)
+
+        like, created = Like.objects.get_or_create(
+            user=request.user,
+            post=post
+        )
+
         if created:
-            create_notification(actor=request.user, recipient=post.author, verb='liked your post', target=post)
-            return Response({'status': 'post liked'})
-        return Response({'status': 'already liked'}, status=status.HTTP_400_BAD_REQUEST)
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb='liked your post',
+                target=post
+            )
+            return Response({'detail': 'Post liked'}, status=status.HTTP_201_CREATED)
+
+        return Response({'detail': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UnlikePostView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        deleted, _ = Like.objects.filter(post=post, user=request.user).delete()
-        if deleted:
-            return Response({'status': 'post unliked'})
-        return Response({'status': 'not liked yet'}, status=status.HTTP_400_BAD_REQUEST)
+        post = generics.get_object_or_404(Post, pk=pk)
 
+        deleted, _ = Like.objects.filter(
+            user=request.user,
+            post=post
+        ).delete()
+
+        if deleted:
+            return Response({'detail': 'Post unliked'}, status=status.HTTP_200_OK)
+
+        return Response({'detail': 'Like does not exist'}, status=status.HTTP_400_BAD_REQUEST)
