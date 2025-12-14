@@ -1,12 +1,11 @@
 import os
 from pathlib import Path
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret')
 
-# 🔹 PRODUCTION REQUIREMENT
+# ✅ DEBUG doit être False
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -50,16 +49,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
-# 🔹 DATABASE
+# ✅ DATABASE PROD
 DATABASES = {
-    'default': dj_database_url.config(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST', 'localhost'),
+        'PORT': os.getenv('PORT', '5432'),
+    }
 }
 
-# 🔹 STATIC FILES
+# ✅ STATIC FILES
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 🔹 SECURITY SETTINGS
+# ✅ SECURITY
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
@@ -68,7 +74,3 @@ SECURE_SSL_REDIRECT = True
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
