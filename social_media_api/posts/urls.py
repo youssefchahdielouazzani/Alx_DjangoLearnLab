@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import feed
+from .views import FeedView
 
 urlpatterns = [
-    path('feed/', feed, name='feed'),
+    path('feed/', FeedView.as_view(), name='feed'),
 ]
+
 
 
