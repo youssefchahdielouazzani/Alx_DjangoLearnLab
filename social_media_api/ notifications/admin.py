@@ -3,3 +3,4 @@ from .models import Notification
 
 admin.site.register(Notification)
 
+
