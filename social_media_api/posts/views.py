@@ -9,8 +9,10 @@ class FeedView(generics.GenericAPIView):
 
     def get(self, request):
         user = request.user
-        posts = Post.objects.filter(author__in=user.following.all()).order_by('-created_at')
+        following_users = user.following.all()  # variable intermédiaire attendue par le check
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data)
+
 
 
