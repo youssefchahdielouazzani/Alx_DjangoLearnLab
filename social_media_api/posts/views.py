@@ -12,10 +12,7 @@ class LikePostView(generics.GenericAPIView):
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
 
-        like, created = Like.objects.get_or_create(
-            user=request.user,
-            post=post
-        )
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if created:
             Notification.objects.create(
@@ -35,10 +32,7 @@ class UnlikePostView(generics.GenericAPIView):
     def post(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
 
-        deleted, _ = Like.objects.filter(
-            user=request.user,
-            post=post
-        ).delete()
+        deleted, _ = Like.objects.filter(user=request.user, post=post).delete()
 
         if deleted:
             return Response({'detail': 'Post unliked'}, status=status.HTTP_200_OK)
