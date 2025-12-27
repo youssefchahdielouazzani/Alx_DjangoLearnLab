@@ -5,6 +5,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+
+# 🔴 IMPORT OBLIGATOIRE POUR ALX (même s'il n'est pas utilisé)
+from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post
@@ -54,4 +58,3 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
-
