@@ -1,1 +1,26 @@
+<h1>{{ object.title }}</h1>
+<p>{{ object.content }}</p>
+<p>By {{ object.author }}</p>
+
+<h2>Comments</h2>
+{% for comment in object.comments.all %}
+    <p>{{ comment.author }}: {{ comment.content }}</p>
+    {% if comment.author == user %}
+        <a href="{% url 'comment_edit' comment.id %}">Edit</a>
+        <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+    {% endif %}
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Add a comment</h3>
+    <form action="{% url 'comment_create' object.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="/admin/login/">Login</a> to add a comment.</p>
+{% endif %}
 
