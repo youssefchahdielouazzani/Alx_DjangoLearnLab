@@ -1,1 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Blog</title>
+</head>
+<body>
+
+    <header>
+        <h1><a href="{% url 'post_list' %}">My Django Blog</a></h1>
+
+        <!-- Search bar -->
+        <form method="get" action="{% url 'search' %}">
+            <input type="text" name="q" placeholder="Search posts...">
+            <button type="submit">Search</button>
+        </form>
+        <hr>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
 
