@@ -1,1 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>Posts tagged with "{{ tag }}"</h2>
+
+{% for post in posts %}
+    <article>
+        <h3>
+            <a href="{% url 'post_detail' post.id %}">
+                {{ post.title }}
+            </a>
+        </h3>
+        <p>{{ post.content|truncatewords:20 }}</p>
+    </article>
+    <hr>
+{% empty %}
+    <p>No posts found for this tag.</p>
+{% endfor %}
+
+<a href="{% url 'post_list' %}">← Back to all posts</a>
+{% endblock %}
 
