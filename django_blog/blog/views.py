@@ -1,15 +1,25 @@
-from django.views.generic import ListView
+from django.db.models import Q
+from django.shortcuts import render
 from .models import Post
 
 
-class PostByTagListView(ListView):
-    model = Post
-    template_name = 'blog/tag_posts.html'
-    context_object_name = 'posts'
+def search_posts(request):
+    query = request.GET.get('q')
 
-    def get_queryset(self):
-        return Post.objects.filter(
-            tags__slug=self.kwargs['tag_slug']
-        )
+    posts = Post.objects.filter(
+        Q(title__icontains=query) |
+        Q(content__icontains=query) |
+        Q(tags__name__icontains=query)
+    ).distinct()
+
+    return render(
+        request,
+        'blog/search_results.html',
+        {
+            'posts': posts,
+            'query': query
+        }
+    )
+
 
 
