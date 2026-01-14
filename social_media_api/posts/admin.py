@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import User
+from .models import Post
 
-# Enregistrement du User custom
-admin.site.register(User)
+# Enregistrement du modèle Post
+admin.site.register(Post)
+
 
