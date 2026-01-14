@@ -13,3 +13,4 @@ class FeedView(generics.GenericAPIView):
         return Response(serializer.data)
 
 
+
