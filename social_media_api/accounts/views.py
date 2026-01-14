@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from .models import User as CustomUser  # <-- renommé pour correspondre au check
+from .models import User as CustomUser  # nom exact attendu
 
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
